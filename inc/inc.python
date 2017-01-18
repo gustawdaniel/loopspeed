@@ -4,5 +4,7 @@ import sys
 
 max=int(sys.argv[1]);
 
-for x in range(0, max):
-    pass;
+
+count = 0
+while (count < max):
+   count = count + 1
