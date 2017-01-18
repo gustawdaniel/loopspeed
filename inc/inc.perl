@@ -1,5 +1,3 @@
 #!/usr/bin/perl
 
-my $max=@ARGV[0];
-
-for(my $i=0;$i<=$max;$i++){}
+for(my $i=0;$i<=$ARGV[0];$i++){}

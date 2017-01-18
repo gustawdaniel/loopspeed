@@ -11,14 +11,14 @@ sqlite3 log.db \
     git CHAR(41)
 );"
 
-i=1;
-max=$1;
-    j=$[1*$max];
-
-#while [[ $i -le $max ]];
-#do
-#    j=$[1*$i];
-    echo "POW = " $j;
-    bash inc.bash $j;
-#    i=$[i+1];
-#done
+#i=1;
+#max=$1;
+#    j=$[1*$max];
+#
+##while [[ $i -le $max ]];
+##do
+##    j=$[1*$i];
+#    echo "POW = " $j;
+#    bash inc.bash $j;
+##    i=$[i+1];
+##done

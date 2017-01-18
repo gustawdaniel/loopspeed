@@ -1,3 +1,8 @@
+# pl (sqlite)
+sudo cpan install DBI
+sudo cpan install DBD::SQLite
+
+
 # cs
 sudo apt-get install mono-devel 
 # r
