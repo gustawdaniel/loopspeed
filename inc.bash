@@ -21,9 +21,9 @@ function test
 	echo $name $size $time |\
 	awk '{printf "| %-12s | %16s | %8s s | %19.2f |\n", $1, $2, $3, $2/$3;}' \
 	 | tee /dev/tty \
-     | awk '{print $2","$4","$6","$9}' >> results.log
+     | awk '{print $2","$4","$6","$9}' >> log/results.log
 
-     sqlite3 log.db  "insert into log (name,size,time,git) values ('$name',$size,$time,'$GIT');"
+     sqlite3 log/log.db  "insert into log (name,size,time,git) values ('$name',$size,$time,'$GIT');"
 
 }
 
@@ -32,7 +32,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")";
 trap onExit SIGINT SIGTERM EXIT;
 
 TMP="$(mktemp -d)";
-POW=$1;
+POW=${1:-50};
 GIT=`git rev-parse HEAD`;
 
 g++ -o "$TMP/cpp" 'inc/inc.cpp';

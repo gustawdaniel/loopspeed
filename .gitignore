@@ -1,4 +1,6 @@
 /inc.class
 /.idea
-/log.db
-/*.log
+!/log
+/log/*
+!/log/.gitkeep
+analysis.nb
