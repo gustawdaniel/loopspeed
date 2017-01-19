@@ -39,7 +39,7 @@ g++ -o "$TMP/cpp" 'inc/inc.cpp';
 gcc -o "$TMP/c"   'inc/inc.c';
 mcs -out:"$TMP/cs.exe" inc/inc.cs
 javac 'inc/inc.java' -d .;
-mysql -u root mysql < inc/def.sql;
+sudo mysql -u root mysql < inc/def.sql;
 f95 -o "$TMP/f" inc/inc.f95
 fpc -Op inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
 
@@ -49,7 +49,7 @@ echo '+--------------+------------------+------------+---------------------+';
 #test    inc.m.sh    $[ 20000000*POW]    bash    inc/inc.m.sh; # long time of setup about 5 sec
 test    inc.bash    $[    20598*POW]    bash    inc/inc.bash;
 test    inc.sql.sh  $[    40713*POW]    bash    inc/inc.sql.sh;
-test    inc.wl      $[   178362*POW]    MathematicaScript -script inc/inc.wl;
+#test    inc.wl      $[   178362*POW]    MathematicaScript -script inc/inc.wl;
 test    inc.cs      $[   500126*POW]    mono    "$TMP/cs.exe";
 test    inc.js      $[   763305*POW]    node    inc/inc.js;
 test    inc.python  $[  1441468*POW]    python  inc/inc.python;
