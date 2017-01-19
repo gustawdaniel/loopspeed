@@ -4,12 +4,14 @@ sudo cpan install DBD::SQLite
 
 
 # cs
-sudo apt-get install mono-devel 
+# sudo apt-get install mono-devel # not required, enough this
+sudo apt install mono-mcs
 # r
 sudo apt-get install r-base 
 # p
 sudo apt-get install fp-compiler
-
+# f95
+sudo apt install gfortran
 
 
 # Analiza wydajności pustych pętli w 16 językach

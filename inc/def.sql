@@ -1,4 +1,5 @@
 CREATE DATABASE IF NOT EXISTS inc;
+use inc;
 
 DROP PROCEDURE IF EXISTS inc_loop;
 
