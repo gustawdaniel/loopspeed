@@ -39,7 +39,7 @@ g++ -o "$TMP/cpp" 'inc/inc.cpp';
 gcc -o "$TMP/c"   'inc/inc.c';
 mcs -out:"$TMP/cs.exe" inc/inc.cs
 javac 'inc/inc.java' -d .;
-sudo mysql -u root mysql < inc/def.sql;
+sudo mysql -u root < inc/def.sql;
 f95 -o "$TMP/f" inc/inc.f95
 fpc -Op inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
 
