@@ -23,7 +23,7 @@ function test
 	 | tee /dev/tty \
      | awk '{print $2","$4","$6","$9}' >> results.log
 
-     sqlite3 log.db  "insert into log (name,size,time,git) values ('$name',$size,$time,'$GIT');"
+#     sqlite3 log.db  "insert into log (name,size,time,git) values ('$name',$size,$time,'$GIT');"
 
 }
 
@@ -46,21 +46,21 @@ fpc -Op inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
 echo '+--------------+------------------+------------+---------------------+';
 echo '|     File     |       Size       |    Time    |        Speed        |';
 echo '+--------------+------------------+------------+---------------------+';
-#test    inc.m.sh    $[100000000*POW]    bash    inc/inc.m.sh; # long time of setup about 5 sec
-test    inc.bash    $[    20000*POW]    bash    inc/inc.bash;
-test    inc.sql.sh  $[    40000*POW]    bash    inc/inc.sql.sh;
-test    inc.wl      $[   200000*POW]    MathematicaScript -script inc/inc.wl;
-test    inc.cs      $[   500000*POW]    mono    "$TMP/cs.exe";
-test    inc.r       $[   120000*POW]    Rscript inc/inc.r;
-test    inc.js      $[  1200000*POW]    node    inc/inc.js;
-test    inc.python  $[  1200000*POW]    python  inc/inc.python;
-test    inc.rb      $[  2500000*POW]    ruby    inc/inc.rb;
-test    inc.perl    $[  2500000*POW]    perl    inc/inc.perl;
-test    inc.php     $[ 10000000*POW]    php     inc/inc.php;
-test    inc.f95     $[ 30000000*POW]    "/$TMP/f";
-test    inc.p       $[ 40000000*POW]    "$TMP/p";
-test    inc.cpp     $[ 40000000*POW]    "$TMP/cpp";
-test    inc.c       $[ 40000000*POW]    "$TMP/c";
-test    inc.java    $[200000000*POW]    java inc;
+test    inc.m.sh    $[ 20000000*POW]    bash    inc/inc.m.sh; # long time of setup about 5 sec
+test    inc.bash    $[    20598*POW]    bash    inc/inc.bash;
+test    inc.sql.sh  $[    40713*POW]    bash    inc/inc.sql.sh;
+test    inc.wl      $[   178362*POW]    MathematicaScript -script inc/inc.wl;
+test    inc.cs      $[   500126*POW]    mono    "$TMP/cs.exe";
+test    inc.js      $[   763305*POW]    node    inc/inc.js;
+test    inc.python  $[  1441468*POW]    python  inc/inc.python;
+test    inc.rb      $[  2484535*POW]    ruby    inc/inc.rb;
+test    inc.perl    $[  2215594*POW]    perl    inc/inc.perl;
+test    inc.r       $[   139211*POW]    Rscript inc/inc.r;
+test    inc.php     $[ 10476892*POW]    php     inc/inc.php;
+test    inc.f95     $[ 30079457*POW]    "/$TMP/f";
+test    inc.cpp     $[ 36443924*POW]    "$TMP/cpp";
+test    inc.c       $[ 37093252*POW]    "$TMP/c";
+test    inc.p       $[ 43815805*POW]    "$TMP/p";
+test    inc.java    $[255411892*POW]    java inc;
 echo '+--------------+------------------+------------+---------------------+';
 
