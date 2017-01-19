@@ -14,7 +14,8 @@ sqlite3 log.db \
 
 #http://stackoverflow.com/questions/10929453/read-a-file-line-by-line-assigning-the-value-to-a-variable
 while IFS='' read -r line || [[ -n "$line" ]]; do
-    echo "Text read from file: $line"
+    echo "POW = " $line;
+    bash inc.bash $line
 done < "$1"
 
 #i=1;
@@ -24,7 +25,6 @@ done < "$1"
 ##while [[ $i -le $max ]];
 ##do
 ##    j=$[1*$i];
-#    echo "POW = " $j;
 #    bash inc.bash $j;
 ##    i=$[i+1];
 ##done
