@@ -6,8 +6,7 @@ use strict;
 my $db = DBI->connect("dbi:SQLite:log/log.db", "", "",{RaiseError => 1, AutoCommit => 1});
 
 my $git='d1f050302c28aa8a837ec5453323df30cad9766e';
-my $filename = 'log/results.log';
-#my $filename = $ARGV[0];
+my $filename =  $ARGV[0] || 'log/results.log';
 
 open( my $fh => $filename) || die "Cannot open $filename: $!";
 
@@ -16,5 +15,4 @@ while(my $line = <$fh>) {
         $db->do("INSERT INTO log (name,size,time,git) values ('".$row[0]."',$row[1],$row[2],'$git');");
 }
 close($fh);
-
 
