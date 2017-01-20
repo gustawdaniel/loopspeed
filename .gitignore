@@ -1,6 +1,5 @@
 /inc.class
 /.idea
-!/log
 /log/*
 !/log/.gitkeep
 analysis.nb
