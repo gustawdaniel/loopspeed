@@ -6,7 +6,6 @@ function onExit
 	[   -d "$TMP" ] && \
 	rm -Rf "$TMP";
 	rm -f inc.class;
-
 	exit;
 }
 
@@ -39,9 +38,9 @@ g++ -o "$TMP/cpp" 'inc/inc.cpp';
 gcc -o "$TMP/c"   'inc/inc.c';
 mcs -out:"$TMP/cs.exe" inc/inc.cs
 javac 'inc/inc.java' -d .;
-sudo mysql -u root < inc/def.sql;
+mysql -u root < inc/def.sql;
 f95 -o "$TMP/f" inc/inc.f95
-fpc -Op inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
+fpc -O2 inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
 
 echo '+--------------+------------------+------------+---------------------+';
 echo '|     File     |       Size       |    Time    |        Speed        |';

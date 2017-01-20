@@ -2,6 +2,7 @@
 
 sudo apt-get install sqlite3 g++ mono-mcs openjdk-9-jdk-headless mysql-server gfortran fp-compiler r-base nodejs-legacy ruby php
 
+sudo cpan install DBI DBD::SQLite
 
 #sudo mysql -u root -e \
 #"DROP USER 'root'@'localhost';
