@@ -15,6 +15,6 @@ sqlite3 log/log.db \
     id INTEGER PRIMARY KEY,
     name VARCHAR(255),
     size UNSIGNED INTEGER,
-    time DECIMAL(8,2),
+    time DECIMAL(12,6),
     git CHAR(41)
 );"

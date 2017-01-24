@@ -291,9 +291,82 @@ close($fh);
 
 Zdarzało nam się na tym blogu analizować dane. Schemat jest prosty. Łączymy się z bazą. Wyciągamy dane do zmiennej, dopasowujemy model, rysujemy wykresy. Czasami wykres zachowuje się dziwnie, wtedy przyglądamy mu się uważniej. 
 
+Aby połączyć się z bazą danych SQLite za pomocą programu `Mathematica` używamy komend:
 
+```
+Needs["DatabaseLink`"]
+conn = OpenSQLConnection[
+  JDBC["SQLite", ToString[NotebookDirectory[]] <> "/log/log.db"]]
+```
+
+Pierwsza z nich to importowanie paczki. Druga zapisuje do zmiennej `conn` nowe połączenie realizowane za pomocą interfejsu `JDBC`. Komenda `NotebookDirectory` zwraca lokalizację notebooka. `ToString` jak nazwa wskazuje zmienia ją w łańcuch znakowy, a znaki `<>` są operatorem konkatenacji stringów. W ten sposób `JDBC` przyjmuje tu tylko dwa argumenty: nazwę silnika bazodanowego i lokalizację pliku z bazą.
+
+Pierwsze zapytanie do bazy będzie dotyczyło języków jakich używamy.
+
+```
+list = Flatten[
+   SQLExecute[conn, "SELECT name FROM log GROUP BY name"]];
+```
+
+Za wykonanie zapytania na połączeniu `conn` odpowiada `SQLExecute`. Komenda `Flatten` służy spłaszczeniu tablicy, która w przeciwnym wypadku była by tablicą tablic. Jest to związane z tym, że jeśli wybieramy więcej niż jeden atrybut to tablica dwuwymiarowa jest bardziej naturalnym sposobem reprezentacji wyniku zapytania. Widać to dobrze na przykładzie kolejnego zapytania, które zadamy, a raczej całej serii zapytań:
+
+```
+data = Table[{i, 
+    SQLExecute[conn, 
+     "SELECT size,time FROM log WHERE name='" <> ToString[i] <> 
+      "'"]}, {i, list}];
+```
+
+Tutaj do zmiennej `data` zapisujemy tablicę, która iterując po wyciągniętej wcześniej liście języków każdy swój element układa w dwuelementowa tablicę. Pierwszy z nich jest właśnie tą nazwą, drugi jest tablicą par zmiennych `size` i `time`, czyli liczb pętli i czasów wykonywania odpowiadających danemu językowi.
+
+Kolejny "oneliner" odpowiada za modelowanie:
+
+```
+nlm = NonlinearModelFit[Log[data[[#, 2]]], 
+     Log[Exp[a] Exp[x] + b^2], {a, b}, x] & /@ Range[list // Length];
+```
+
+Tak. Ta jedna linijka dopasowuje modele dla wszystkich języków za jednym razem. Rozłożymy ją na czynniki pierwsze.
+
+Zacznijmy od najbardziej tajemniczych znaczków, czyli składni `f[#]&/@{1,2,3}` . Znaki `a/@b` oznaczają mapowanie, czyli zastosowanie operacji `a` do elementów pierwszego poziomu tablicy `b`. Znak `#` oznacza slot na włożenie danych, a `&` znacznikiem informującym, że to co nastąpi później będzie wkładane do slotów. Tak więc `f[#]&[a]` jest tym samym co `f[a]`. Ostatecznie `f[#]&/@{1,2,3}` jest równoważne `{f[1],f[2],f[3]}`. Wielkość `list//Length` to długość zmiennej `list`. W naszym przypadku `16`. Funkcja `Range` tworzy tablicę od jedności do swojego argumentu. Dlatego `Range[list//Length]` będzie tablicą od `1` do `16`. Więc te liczby kolejno będziemy wkładać do slotu oznaczonego `#` w wyrażeniu `NonlinearModelFit`. 
+
+`NonlinearModelFit` jest funkcją języka `Mathematica` odpowiadającą za dopasowywanie modelu do danych, oraz zwracanie dodatkowych informacji związanych na przykład z błędami pomiarowymi. 
+
+Jej pierwszym argumentem jest zbiór danych. W naszym przypadku zlogarytmowana lista par czasów i rozmiarów pętli. Działa tu zasada: "logarytm tablicy to tablica logarytmów". 
+
+Drugi argument to model danych jaki dopasowujemy. U nas `Log[Exp[a] Exp[x] + b^2]`. Choć na pierwszy rzut oka nie wygląda, jest to prosta `Ax+B` tylko w zmienionym układzie współrzędnych. Spójrzmy na to tak. Do `x` i `y` dopasowywali byśmy prostą `y=Ax+B`, Jeśli zlogarytmujemy obie strony to mamy `log(y)=log(A exp(log(x))+B)`, dane, do jakich dopasowujemy to `{Log[x], Log[y]}`, więc tymczasowo nazywająć `log(x)=X` i `log(y)=Y` dostajemy wyrażenie `Y = log(A exp(X) + B)` dla danych `X,Y`. Jednak ponieważ nasze `A` jest bardzo małe, a `B` zawsze dodatnie, wprowadzamy oznaczenia `A=exp(a)` oraz `B=b^2`. Teraz `a` może mieć naturalne rzędy wielkości - tak lubiane przez metody numeryczne, a na `b` nie narzucamy żadnych ograniczeń dotyczących znaku - metody numeryczne skaczą ze szczęścia, kiedy widzą takie podstawienia. Od teraz będziemy operować zmiennymi `a` i `b` mając na myśli, że `A` i `B` możemy z nich łatwo obliczyć.
+
+Trzeci argument `NonlinearModelFit` to lista stopni swobody, a czwarty nazwany po prostu `x` odpowiada naszemu dużemu `X` czyli logarytmowi z liczby powtórzeń pętli.
+
+Mając dane i model możemy przełożyć je na interfejs zrozumiały dla człowieka, czyli wykresy. Za ich wyświetlenie odpowiada poniższy kod.
+```
+Do[Module[{img, bands},
+  bands[x_] = nlm[[i]]["MeanPredictionBands", ConfidenceLevel -> .999];
+  img = Show[{ListLogLogPlot[{data[[i, 2]]}, PlotRange -> Full, 
+      PlotLabel -> data[[i, 1]], ImageSize -> 800, 
+      BaseStyle -> {FontSize -> 15}, 
+      FrameLabel -> {"$size [number of loops]", "$time [sec]"}, 
+      Frame -> True, PlotStyle -> {Lighter[Red]}, 
+      PlotLegends -> 
+       Placed[SwatchLegend[{"Experimental data"}, 
+         LegendMarkerSize -> {30, 30}], {0.3, 0.85}]], 
+     LogLogPlot[{Exp[nlm[[i]][Log[x]]], Exp[bands[Log[x]]]}, {x, 1, 
+       10^13}, PlotLegends -> 
+       Placed[SwatchLegend[{nlm[[i]][
+           "ParameterConfidenceIntervalTable"]}, 
+         LegendMarkerSize -> {1, 1}], {0.3, 0.75}]]}];
+  Print[img];
+  Export["inc_" <> ToString[list[[i]]] <> ".png", img];
+  ], {i, list // Length}]
+```
+
+Funkcja `Do` wykonuje swój pierwszy argument iterując po `i` od `1` do liczby badanych języków programowania. `Module` z jednej strony porządkuje kod zbierając go w jedną niepodzielną całość, z drugiej pozwala nie zaśmiecać głównego programu zmiennymi lokalnymi do przechowywania wykresów (`img`) i linii granicznych (`bands`). Owe linie graniczne to możliwie najkrótszy i najdłuższy czas wykonywania określonej ilości pętli przy założonym przedziale ufności. Nie wchodząc już w szczegóły, które związane głównie z formatowaniem nie są tak ciekawe: `img` zawiera wykres. Funkcja `Print` wyświetla go na ekranie a `Export` zapisuje do pliku. 
+
+To wszystko. W 16 liniach zamknęliśmy całą analizę danych. Przy niektórych językach pojawią się pewne różnice w wynikach związane ze zmianami wprowadzanymi przy kolejnych commitach. Wymagane dla nich komendy będę podawał na bierząco.
 
 ## Wyniki
+
+
 
 [![r.png](https://s27.postimg.org/jzgak8vab/image.png)](https://postimg.org/image/rffk61izj/)
 
@@ -302,5 +375,6 @@ Zdarzało nam się na tym blogu analizować dane. Schemat jest prosty. Łączymy
 + `size` - ilość kroków pętli
 + `time` - czas wykonywania programu
 + `speed` - ilość iteracji na sekundę
+
 
 
