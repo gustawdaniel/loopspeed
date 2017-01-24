@@ -1,3 +1,1 @@
-#!/usr/bin/perl
-
-for(my $i=0;$i<=$ARGV[0];$i++){}
+for(;$_<=$ARGV[0];$_++){}

@@ -4,7 +4,6 @@ import sys
 
 max=int(sys.argv[1]);
 
-
 count = 0
 while (count < max):
    count = count + 1
