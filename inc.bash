@@ -37,8 +37,8 @@ TMP="$(mktemp -d)";
 POW=${1:-50};
 GIT=`git rev-parse HEAD`;
 
-g++ -O1 -o "$TMP/cpp" 'inc/inc.cpp';
-#gcc -o "$TMP/c"   'inc/inc.c';
+#g++ -O1 -o "$TMP/cpp" 'inc/inc.cpp';
+gcc -O1 -o "$TMP/c"   'inc/inc.c';
 #mcs -out:"$TMP/cs.exe" inc/inc.cs
 #javac 'inc/inc.java' -d .;
 #mysql -u root < inc/def.sql;
@@ -63,8 +63,8 @@ while IFS='' read -r POW || [[ -n "$POW" ]]; do
 #test    inc.r       $[1*POW]    Rscript inc/inc.r;
 #test    inc.php     $[1*POW]    php     inc/inc.php;
 #test    inc.f95     $[1*POW]    "/$TMP/f";
-test    inc.cpp     $[1*POW]    "$TMP/cpp";
-#test    inc.c       $[1*POW]    "$TMP/c";
+#test    inc.cpp     $[1*POW]    "$TMP/cpp";
+test    inc.c       $[1*POW]    "$TMP/c";
 #test    inc.p       $[1*POW]    "$TMP/p";
 #test    inc.java    $[1*POW]    java inc;
 
