@@ -42,7 +42,7 @@ gcc -O1 -o "$TMP/c"   'inc/inc.c';
 #mcs -out:"$TMP/cs.exe" inc/inc.cs
 #javac 'inc/inc.java' -d .;
 #mysql -u root < inc/def.sql;
-#f95 -o "$TMP/f" inc/inc.f95
+f95 -O1 -o "$TMP/f" inc/inc.f95
 #fpc -O2 inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
 
 echo '+--------------+-----------------+----------------+---------------------+';
@@ -62,7 +62,7 @@ while IFS='' read -r POW || [[ -n "$POW" ]]; do
 #test    inc.perl    $[1*POW]    perl    inc/inc.perl;
 #test    inc.r       $[1*POW]    Rscript inc/inc.r;
 #test    inc.php     $[1*POW]    php     inc/inc.php;
-#test    inc.f95     $[1*POW]    "/$TMP/f";
+test    inc.f95     $[1*POW]    "/$TMP/f";
 #test    inc.cpp     $[1*POW]    "$TMP/cpp";
 test    inc.c       $[1*POW]    "$TMP/c";
 #test    inc.p       $[1*POW]    "$TMP/p";
