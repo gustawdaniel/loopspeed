@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-sudo apt-get install sqlite3 g++ mono-mcs openjdk-9-jdk-headless mysql-server gfortran fp-compiler r-base nodejs-legacy ruby php
+apt-get install sqlite3 g++ mono-mcs openjdk-9-jdk-headless mysql-server gfortran fp-compiler r-base nodejs-legacy ruby php
 
-sudo cpan install DBI DBD::SQLite Text::CSV_XS
+cpan install DBI DBD::SQLite Text::CSV_XS
 
 sqlite3 log/log.db \
 "create table IF NOT EXISTS log (
