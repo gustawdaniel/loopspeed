@@ -4,12 +4,6 @@ sudo apt-get install sqlite3 g++ mono-mcs openjdk-9-jdk-headless mysql-server gf
 
 sudo cpan install DBI DBD::SQLite
 
-#sudo mysql -u root -e \
-#"DROP USER 'root'@'localhost';
-#CREATE USER 'root'@'%' IDENTIFIED BY '';
-#GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
-#FLUSH PRIVILEGES;";
-
 sqlite3 log/log.db \
 "create table IF NOT EXISTS log (
     id INTEGER PRIMARY KEY,
@@ -17,4 +11,13 @@ sqlite3 log/log.db \
     size UNSIGNED INTEGER,
     time DECIMAL(12,6),
     git CHAR(41)
+);"
+
+sqlite3 log/log.db \
+"create table result (
+    name varchar(255),
+    a real(12,6),
+    b real,
+    ea real,
+    eb real
 );"

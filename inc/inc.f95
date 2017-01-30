@@ -1,4 +1,4 @@
-PROGRAM test_get_command_argument
+PROGRAM loop_argument_times
   INTEGER(16) :: i, range
   CHARACTER(len=32) :: arg
 

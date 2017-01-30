@@ -3,3 +3,4 @@
 /log/*
 !/log/.gitkeep
 analysis.nb
+shunit2-2.1.6
