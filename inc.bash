@@ -125,11 +125,12 @@ while getopts hatlf opt; do
 done
 shift "$((OPTIND-1))" # Shift off the options and optional --.
 
+POW=${1:-4};
+
 # Everything that's left in "$@" is a non-option.  In our case, a FILE to process.
-printf 'a=<%d>\nt=<%s>\nf=<%s>\nfm=<%s>\n' "$allPrograms" "$timeMode" "$configFile" "$fileMode"
-printf '<%s>\n' "$@"
-POW=${1:-50};
-echo $POW;
+#printf 'a=<%d>\nt=<%s>\nf=<%s>\nfm=<%s>\n' "$allPrograms" "$timeMode" "$configFile" "$fileMode"
+#printf '<%s>\n' "$@"
+#echo $POW;
 
 loadParams;
 compile
@@ -137,9 +138,6 @@ compile
 echo '+--------------+-----------------+----------------+---------------------+';
 echo '|     File     |      Size       |      Time      |        Speed        |';
 echo '+--------------+-----------------+----------------+---------------------+';
-
-#echo $(calculate inc.pl    );
-#exit;
 
 if [[ "$fileMode" -eq "1" ]]; then
    while IFS='' read -r POW || [[ -n "$POW" ]]; do
