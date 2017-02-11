@@ -5,11 +5,11 @@ echo "\n\n\nBASH START\n\n\n"
 # no prompt password mysql installation
 #http://stackoverflow.com/questions/7739645/install-mysql-on-ubuntu-without-password-prompt
 
-apt-get update -y
+#apt-get update -y
 
-echo "mysql-server mysql-server/root_password password ''" | debconf-set-selections
-echo "mysql-server mysql-server/root_password_again password ''" | debconf-set-selections
-apt-get install -y mysql-server
+#echo "mysql-server mysql-server/root_password password ''" | debconf-set-selections
+#echo "mysql-server mysql-server/root_password_again password ''" | debconf-set-selections
+#apt-get install -y mysql-server
 
 #apt-get install -y g++ mono-mcs openjdk-9-jdk-headless gfortran fp-compiler r-base nodejs-legacy ruby php
 #
