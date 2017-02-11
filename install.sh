@@ -16,25 +16,25 @@ apt-get install -y mysql-server
 #apt-get install -y bc git
 
 
-#cpan install DBI DBD::SQLite Text::CSV_XS
-#
-#sqlite3 log/log.db \
-#"create table IF NOT EXISTS log (
-#    id INTEGER PRIMARY KEY,
-#    name VARCHAR(255),
-#    size UNSIGNED INTEGER,
-#    time DECIMAL(12,6),
-#    git CHAR(41)
-#);"
-#
-#sqlite3 log/log.db \
-#"create table result (
-#    name varchar(255),
-#    a real,
-#    b real,
-#    ea real,
-#    eb real
-#);"
-#
-#
-#echo "\n\n\nBASH END\n\n\n"
+cpan install DBI DBD::SQLite Text::CSV_XS
+
+sqlite3 log/log.db \
+"create table IF NOT EXISTS log (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(255),
+    size UNSIGNED INTEGER,
+    time DECIMAL(12,6),
+    git CHAR(41)
+);"
+
+sqlite3 log/log.db \
+"create table result (
+    name varchar(255),
+    a real,
+    b real,
+    ea real,
+    eb real
+);"
+
+
+echo "\n\n\nBASH END\n\n\n"
