@@ -9,8 +9,6 @@ image: ubuntu:16.10
 #- mysql:8
 
 before_script:
-- echo "\n\n\nBEFORE UPDATE\n\n\n"
-- apt-get update -y
 - echo "\n\n\nBEFORE INSTALL\n\n\n"
 - bash install.sh
 - echo "\n\n\nBEFORE PARAMS\n\n\n"

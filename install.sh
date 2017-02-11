@@ -7,11 +7,13 @@ echo "\n\n\nBASH START\n\n\n"
 
 apt-get update -y
 
-echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
-echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
+echo "mysql-server mysql-server/root_password password ''" | debconf-set-selections
+echo "mysql-server mysql-server/root_password_again password ''" | debconf-set-selections
 apt-get install -y mysql-server
 
 apt-get install -y sqlite3 g++ mono-mcs openjdk-9-jdk-headless gfortran fp-compiler r-base nodejs-legacy ruby php
+
+apt-get install -y bc
 
 
 cpan install DBI DBD::SQLite Text::CSV_XS
