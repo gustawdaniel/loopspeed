@@ -1,5 +1,5 @@
 # Select image from https://hub.docker.com/_/php/
-image: ubuntu:16.10
+#image: ubuntu:16.10
 
 variables:
   MYSQL_ROOT_PASSWORD: pass
@@ -8,9 +8,9 @@ variables:
 services:
   - mysql
 
-before_script:
-- echo "\n\n\nBEFORE INSTALL\n\n\n"
-- bash install.sh
+#before_script:
+#- echo "\n\n\nBEFORE INSTALL\n\n\n"
+#- bash install.sh
 #- perl util/parameters_load.pl
 #- curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
 
@@ -18,7 +18,7 @@ test:
   image: mysql
   script:
   - echo "SELECT 'OK';" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-  - mysql -u root < inc/def.sql;
-  - bash equality_test.sh
-  - bash inc.bash
+#  - mysql -u root < inc/def.sql;
+#  - bash equality_test.sh
+#  - bash inc.bash
 
