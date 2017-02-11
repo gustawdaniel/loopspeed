@@ -19,4 +19,4 @@ test:
   script:
   - bash equality_test.sh
   - bash inc.bash
-  
+
