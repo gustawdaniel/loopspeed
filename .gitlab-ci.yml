@@ -3,7 +3,7 @@
 
 
 services:
-  - mysql
+- mysql
 
 
 variables:
