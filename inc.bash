@@ -42,13 +42,13 @@ function test {
 }
 
 function compile {
-    g++ -O1 -o "$TMP/cpp" 'inc/inc.cpp';
-    gcc -O1 -o "$TMP/c"   'inc/inc.c';
-    mcs -out:"$TMP/cs.exe" inc/inc.cs
-    javac 'inc/inc.java' -d .;
+#    g++ -O1 -o "$TMP/cpp" 'inc/inc.cpp';
+#    gcc -O1 -o "$TMP/c"   'inc/inc.c';
+#    mcs -out:"$TMP/cs.exe" inc/inc.cs
+#    javac 'inc/inc.java' -d .;
     mysql -u root < inc/def.sql;
-    f95 -O1 -o "$TMP/f" inc/inc.f95
-    fpc -O2 inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
+#    f95 -O1 -o "$TMP/f" inc/inc.f95
+#    fpc -O2 inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
 }
 
 # number of loops for given languages in dependence from $timeMode
@@ -67,21 +67,21 @@ function testbundle {
 
     #echo "size = $line";
     [ "$allPrograms" -eq "1" ] && test    $(calculate inc.m.sh    )    bash    inc/inc.m.sh; # long time of setup about 5 sec
-    test    $(calculate inc.bash    )    bash    inc/inc.bash;
+#    test    $(calculate inc.bash    )    bash    inc/inc.bash;
     test    $(calculate inc.sql.sh  )    bash    inc/inc.sql.sh;
     [ "$allPrograms" -eq "1" ] && test    $(calculate inc.wl      )    MathematicaScript -script inc/inc.wl;
-    test    $(calculate inc.cs      )    mono    "$TMP/cs.exe";
-    test    $(calculate inc.js      )    node    inc/inc.js;
-    test    $(calculate inc.python  )    python  inc/inc.python;
-    test    $(calculate inc.rb      )    ruby    inc/inc.rb;
-    test    $(calculate inc.pl      )    perl    inc/inc.pl;
-    test    $(calculate inc.r       )    Rscript inc/inc.r;
-    test    $(calculate inc.php     )    php     inc/inc.php;
-    test    $(calculate inc.f95     )    "/$TMP/f";
-    test    $(calculate inc.cpp     )    "$TMP/cpp";
-    test    $(calculate inc.c       )    "$TMP/c";
-    test    $(calculate inc.p       )    "$TMP/p";
-    test    $(calculate inc.java    )    java inc;
+#    test    $(calculate inc.cs      )    mono    "$TMP/cs.exe";
+#    test    $(calculate inc.js      )    node    inc/inc.js;
+#    test    $(calculate inc.python  )    python  inc/inc.python;
+#    test    $(calculate inc.rb      )    ruby    inc/inc.rb;
+#    test    $(calculate inc.pl      )    perl    inc/inc.pl;
+#    test    $(calculate inc.r       )    Rscript inc/inc.r;
+#    test    $(calculate inc.php     )    php     inc/inc.php;
+#    test    $(calculate inc.f95     )    "/$TMP/f";
+#    test    $(calculate inc.cpp     )    "$TMP/cpp";
+#    test    $(calculate inc.c       )    "$TMP/c";
+#    test    $(calculate inc.p       )    "$TMP/p";
+#    test    $(calculate inc.java    )    java inc;
 }
 
 function loadParams {
