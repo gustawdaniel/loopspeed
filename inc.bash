@@ -51,6 +51,7 @@ function compile {
     fpc -O2 inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
 }
 
+# number of loops for given languages in dependence from $timeMode
 function calculate {
 
     if [[ "$timeMode" -eq "1"  ]]; then
