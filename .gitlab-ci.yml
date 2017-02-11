@@ -1,26 +1,39 @@
-# Select image from https://hub.docker.com/_/php/
-#image: ubuntu:16.10
-
-
 services:
 - mysql
 
-
 variables:
-  MYSQL_ROOT_PASSWORD: pass
-  MYSQL_DATABASE: inc
+  # Configure mysql service (https://hub.docker.com/_/mysql/)
+  MYSQL_DATABASE: hello_world_test
+  MYSQL_ROOT_PASSWORD: mysql
 
-#before_script:
-#- echo "\n\n\nBEFORE INSTALL\n\n\n"
-#- bash install.sh
-#- perl util/parameters_load.pl
-#- curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
-
-test:
+connect:
   image: mysql
   script:
   - echo "SELECT 'OK';" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-#  - mysql -u root < inc/def.sql;
-#  - bash equality_test.sh
-#  - bash inc.bash
 
+## Select image from https://hub.docker.com/_/php/
+##image: ubuntu:16.10
+#
+#
+#services:
+#- mysql
+#
+#
+#variables:
+#  MYSQL_ROOT_PASSWORD: pass
+#  MYSQL_DATABASE: inc
+#
+##before_script:
+##- echo "\n\n\nBEFORE INSTALL\n\n\n"
+##- bash install.sh
+##- perl util/parameters_load.pl
+##- curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
+#
+#test:
+#  image: mysql
+#  script:
+#  - echo "SELECT 'OK';" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+##  - mysql -u root < inc/def.sql;
+##  - bash equality_test.sh
+##  - bash inc.bash
+#
