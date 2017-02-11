@@ -17,4 +17,8 @@ Test by docker
 
     sudo gitlab-runner exec docker test
     
+    sudo apt-get install git
+    git clone -depth=1 http://github.com/gustawdaniel/loopspeed && cd loopspeed
+    bash install.sh
+    
     
