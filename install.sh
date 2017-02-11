@@ -13,7 +13,7 @@ apt-get install -y mysql-server
 
 #apt-get install -y sqlite3 g++ mono-mcs openjdk-9-jdk-headless gfortran fp-compiler r-base nodejs-legacy ruby php
 
-#apt-get install -y bc git
+apt-get install -y bc git
 
 
 cpan install DBI DBD::SQLite Text::CSV_XS
