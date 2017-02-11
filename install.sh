@@ -11,10 +11,9 @@ echo "mysql-server mysql-server/root_password password ''" | debconf-set-selecti
 echo "mysql-server mysql-server/root_password_again password ''" | debconf-set-selections
 apt-get install -y mysql-server
 
-#apt-get install -y g++ mono-mcs openjdk-9-jdk-headless gfortran fp-compiler r-base nodejs-legacy ruby php
+apt-get install -y g++ mono-mcs openjdk-9-jdk-headless gfortran fp-compiler r-base nodejs-legacy ruby php
 
 apt-get install -y sqlite3 bc git
-
 
 cpan install DBI DBD::SQLite Text::CSV_XS
 
