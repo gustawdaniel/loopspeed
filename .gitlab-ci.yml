@@ -12,7 +12,7 @@ before_script:
 - echo "\n\n\nBEFORE INSTALL\n\n\n"
 - bash install.sh
 - echo "\n\n\nBEFORE SOCK\n\n\n"
-- sudo /etc/init.d/mysql start
+- /etc/init.d/mysql start
 - echo "\n\n\nBEFORE RESET PRIVILEGES\n\n\n"
 - mysql -u root < util/reset_privileges.sql
 - echo "\n\n\nBEFORE PARAMS\n\n\n"
