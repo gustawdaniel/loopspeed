@@ -1,7 +1,7 @@
 image: ubuntu:16.10
 
 variables:
-  MYSQL_ROOT_PASSWORD: ''
+  MYSQL_ROOT_PASSWORD: ""
   MYSQL_DATABASE: hadar
 
 services:
