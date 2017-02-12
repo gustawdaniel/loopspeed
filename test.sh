@@ -66,13 +66,13 @@ test_ratio_of_loops_in_proper_range()
 # ratio of time for test with 2 sec and 1 sec should be near to 2
 test_ratio_of_time_should_be_near_2_for_time_based_test()
 {
-    ratioOfColumns 4 t1 t2 | columnInRange 1.7 2.3;
+    ratioOfColumns 4 t1 t2 | columnInRange 1.5 2.3;
 }
 
 # ratio of time for test with 2 and 1 loop should be near to 1
 test_ratio_of_time_should_be_near_1_for_loop_based_test()
 {
-    ratioOfColumns 4 l1 l2 | columnInRange 0.8 1.7;
+    ratioOfColumns 4 l1 l2 | columnInRange 0.4 1.8;
 }
 
 # any free language (without matlab and mathematica) start in time small than 0.2 sec
@@ -85,13 +85,13 @@ test_start_no_longer_than_150_milisecond()
 # ratio of speed for time based test should be near to 1
 test_speed_should_be_not_dependent_from_loops_in_limit()
 {
-    ratioOfColumns 5 t1 t2 | columnInRange 0.8 1.3;
+    ratioOfColumns 5 t1 t2 | columnInRange 0.8 1.4;
 }
 
 # ratio of speed for 2 and 1 loop should be near to 2
 test_ratio_of_speed_for_small_loop_number_in_proper_range()
 {
-    ratioOfColumns 5 l1 l2 | columnInRange 1.2 7.0;
+    ratioOfColumns 5 l1 l2 | columnInRange 1.1 7.0;
 }
 
 test_ratio_of_speed_for_1_and_2_loops_form_database()
@@ -103,7 +103,7 @@ test_ratio_of_speed_for_1_and_2_loops_form_database()
             > log/out.l$n.speed.log
     done
 
-    ratioOfColumns 2 l1.speed l2.speed | columnInRange 1.6 2.4;
+    ratioOfColumns 2 l1.speed l2.speed | columnInRange 1.1 7.0;
 }
 
 . shunit2-2.1.6/src/shunit2
