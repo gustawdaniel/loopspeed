@@ -38,7 +38,7 @@ function test {
 	    | tee -a log/results.log \
 	    | awk -F ',' '{printf "| %-12s | %15s | %12.6f s | %19.2f |\n", $1, $2, $3, $2/$3;}'
 
-#     sqlite3 log/log.db  "insert into log (name,size,time,git) values ('$name',$size,$time,'$GIT');"
+     sqlite3 log/log.db  "insert into log (name,size,time,git) values ('$name',$size,$time,'$GIT');"
 }
 
 function compile {
@@ -70,12 +70,12 @@ function testbundle {
     test    $(calculate inc.bash    )    bash    inc/inc.bash;
     test    $(calculate inc.sql.sh  )    bash    inc/inc.sql.sh;
     [ "$allPrograms" -eq "1" ] && test    $(calculate inc.wl      )    MathematicaScript -script inc/inc.wl;
+    test    $(calculate inc.r       )    Rscript inc/inc.r;
     test    $(calculate inc.cs      )    mono    "$TMP/cs.exe";
     test    $(calculate inc.js      )    node    inc/inc.js;
     test    $(calculate inc.python  )    python  inc/inc.python;
     test    $(calculate inc.rb      )    ruby    inc/inc.rb;
     test    $(calculate inc.pl      )    perl    inc/inc.pl;
-    test    $(calculate inc.r       )    Rscript inc/inc.r;
     test    $(calculate inc.php     )    php     inc/inc.php;
     test    $(calculate inc.f95     )    "/$TMP/f";
     test    $(calculate inc.cpp     )    "$TMP/cpp";

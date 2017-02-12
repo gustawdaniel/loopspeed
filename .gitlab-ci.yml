@@ -11,7 +11,7 @@ variables:
   MYSQL_ROOT_PASSWORD: pass
 
 before_script:
-- add-apt-repository ppa:ondrej/php
+#- add-apt-repository ppa:ondrej/php
 - apt-get update -y
 - php -v
 - apt-get install -y python
@@ -38,9 +38,5 @@ test:
   - export MYSQL_HOST="mysql";
   - echo "SELECT 'OK';" | mysql --user=root "$MYSQL_DATABASE"
   - bash test.sh
-  - bash equality_test.sh
-  - bash inc.bash -t 1
-  - bash inc.bash -t 2
-  - bash inc.bash -t 4
 
 
