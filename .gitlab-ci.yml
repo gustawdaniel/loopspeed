@@ -1,3 +1,5 @@
+image: ubuntu:16.10
+
 services:
 - mysql
 
@@ -20,7 +22,6 @@ connect:
 
 
 
-#image: ubuntu:16.10
 #
 #variables:
 #  MYSQL_ROOT_PASSWORD: pass
