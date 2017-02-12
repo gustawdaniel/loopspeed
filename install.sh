@@ -2,7 +2,8 @@
 
 apt-get update -y
 apt-get install -y g++ mono-mcs openjdk-9-jdk-headless gfortran fp-compiler r-base nodejs-legacy ruby php
-apt-get install -y sqlite3 bc git mysql-client libtext-csv-perl libdbi-perl libdbd-sqlite3-perl
+apt-get install -y sqlite3 bc git mysql-client curl
+apt-get install -y libtext-csv-perl libdbi-perl libdbd-sqlite3-perl
 cpan install DBI DBD::SQLite Text::CSV_XS
 
 sqlite3 log/log.db \
