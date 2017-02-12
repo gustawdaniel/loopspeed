@@ -14,7 +14,8 @@ connect:
   image: mysql
   script:
 #  - echo "SELECT 'OK';" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-  - echo "SELECT 'OK';" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - MYSQL_PWD=$MYSQL_ROOT_PASSWORD;
+  - echo "SELECT 'OK';" | mysql --user=root --host=mysql "$MYSQL_DATABASE"
   - bash test.sh
 
 
