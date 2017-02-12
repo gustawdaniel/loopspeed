@@ -14,11 +14,15 @@ before_script:
 - perl util/parameters_load.pl
 - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
 
-connect:
+# local variables
+#  https://dev.mysql.com/doc/refman/5.7/en/environment-variables.html
+
+test:
   image: mysql
   script:
   - export MYSQL_PWD=$MYSQL_ROOT_PASSWORD;
-  - echo "SELECT 'OK';" | mysql --user=root --host=mysql "$MYSQL_DATABASE"
+  - export MYSQL_HOST="mysql";
+  - echo "SELECT 'OK';" | mysql --user=root "$MYSQL_DATABASE"
   - bash test.sh
   - bash equality_test.sh
   - bash inc.bash
