@@ -2,7 +2,8 @@
 
 
 apt-get update -y
-apt-get install -y php python default-jdk g++ mono-mcs gfortran fp-compiler r-base nodejs-legacy ruby
+apt-get install -y php
+apt-get install -y python default-jdk g++ mono-mcs gfortran fp-compiler r-base nodejs-legacy ruby
 
 apt-get install -y sqlite3 bc git mysql-client curl
 apt-get install -y libtext-csv-perl libdbi-perl libdbd-sqlite3-perl
