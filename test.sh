@@ -91,7 +91,7 @@ test_speed_should_be_not_dependent_from_loops_in_limit()
 # ratio of speed for 2 and 1 loop should be near to 2
 test_ratio_of_speed_for_small_loop_number_in_proper_range()
 {
-    ratioOfColumns 5 l1 l2 | columnInRange 1.2 2.5;
+    ratioOfColumns 5 l1 l2 | columnInRange 1.2 7.0;
 }
 
 test_ratio_of_speed_for_1_and_2_loops_form_database()
