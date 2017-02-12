@@ -10,6 +10,17 @@ variables:
   MYSQL_ROOT_PASSWORD: pass
 
 before_script:
+- apt-get update -y
+- apt-get install -y g++
+- apt-get install -y mono-mcs
+- apt-get install -y gfortran
+- apt-get install -y fp-compiler
+- apt-get install -y r-base
+- apt-get install -y nodejs-legacy
+- apt-get install -y ruby
+- apt-get install -y default-jdk
+- apt-get install -y php-cli
+- apt-get install -y python
 - bash install.sh
 - perl util/parameters_load.pl
 - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
@@ -25,6 +36,8 @@ test:
   - echo "SELECT 'OK';" | mysql --user=root "$MYSQL_DATABASE"
   - bash test.sh
   - bash equality_test.sh
-  - bash inc.bash
+  - bash inc.bash -t 1
+  - bash inc.bash -t 2
+  - bash inc.bash -t 4
 
 
