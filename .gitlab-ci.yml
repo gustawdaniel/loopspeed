@@ -2,7 +2,8 @@
 image: ubuntu:16.10
 
 services:
-- mysql
+- mysql:8
+- php:7
 
 variables:
   # Configure mysql service (https://hub.docker.com/_/mysql/)
@@ -10,7 +11,11 @@ variables:
   MYSQL_ROOT_PASSWORD: pass
 
 before_script:
+- add-apt-repository ppa:ondrej/php
 - apt-get update -y
+- php -v
+- apt-get install -y python
+- apt-get install -y default-jdk
 - apt-get install -y g++
 - apt-get install -y mono-mcs
 - apt-get install -y gfortran
@@ -18,9 +23,6 @@ before_script:
 - apt-get install -y r-base
 - apt-get install -y nodejs-legacy
 - apt-get install -y ruby
-- apt-get install -y default-jdk
-- apt-get install -y php-cli
-- apt-get install -y python
 - bash install.sh
 - perl util/parameters_load.pl
 - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
@@ -30,6 +32,7 @@ before_script:
 
 test:
   image: mysql
+  image: php
   script:
   - export MYSQL_PWD=$MYSQL_ROOT_PASSWORD;
   - export MYSQL_HOST="mysql";
