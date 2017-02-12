@@ -1,11 +1,10 @@
-image: ubuntu:16.10
+services:
+- mysql
 
 variables:
-  MYSQL_ROOT_PASSWORD: ""
-  MYSQL_DATABASE: hadar
-
-services:
-- mysql:8
+  # Configure mysql service (https://hub.docker.com/_/mysql/)
+  MYSQL_DATABASE: hello_world_test
+  MYSQL_ROOT_PASSWORD: ;
 
 before_script:
 - apt-get update -y
@@ -14,7 +13,28 @@ before_script:
 connect:
   image: mysql
   script:
-  - echo "SELECT 'OK';" | mysql --user=root --host=mysql "$MYSQL_DATABASE"
+#  - echo "SELECT 'OK';" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - echo "SELECT 'OK';" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+  - bash test.sh
+
+
+
+#image: ubuntu:16.10
+#
+#variables:
+#  MYSQL_ROOT_PASSWORD: pass
+#  MYSQL_DATABASE: inc
+#
+#services:
+#- mysql:8
+#
+#before_script:
+#- apt-get update -y
+#- apt-get install mysql-client -y
+#
+#connect:
+#  script:
+#  - echo "SELECT 'OK';" | mysql --user=root --password "$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
 
 ## Select image from https://hub.docker.com/_/php/
 ##image: ubuntu:16.10
