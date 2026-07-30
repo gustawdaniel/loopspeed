@@ -23,12 +23,21 @@ jobs:
     env:
       MYSQL_HOST: 127.0.0.1
       MYSQL_TCP_PORT: 3307
-      MYSQL_USER: root
-      MYSQL_PWD: ""
+      USER: root
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Configure MariaDB client credentials (~/.my.cnf)
+        run: |
+          cat << 'EOF' > ~/.my.cnf
+          [client]
+          user = root
+          host = 127.0.0.1
+          port = 3307
+          EOF
+          chmod 600 ~/.my.cnf
 
       - name: Install dependencies
         run: |
