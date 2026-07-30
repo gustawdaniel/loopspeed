@@ -44,8 +44,8 @@ jobs:
           SUDO=""
           command -v sudo >/dev/null 2>&1 && SUDO="sudo"
           $SUDO apt-get update
-          $SUDO apt-get install -y gfortran fpc mono-devel nodejs python3 perl libtext-csv-perl libtext-csv-xs-perl libdbi-perl libdbd-sqlite3-perl mariadb-client curl bc
-          bash install.sh || true
+          $SUDO apt-get install -y sqlite3 gfortran fpc mono-devel nodejs python3 perl libtext-csv-perl libtext-csv-xs-perl libdbi-perl libdbd-sqlite3-perl mariadb-client curl bc
+          bash install.sh
 
       - name: Load database parameters
         run: |

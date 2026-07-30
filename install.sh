@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
+if command -v paru >/dev/null 2>&1; then
+  paru -S --needed --noconfirm \
+    php python jdk-openjdk gcc mono gcc-fortran fpc r ruby \
+    sqlite bc git mariadb-clients curl \
+    perl-text-csv perl-dbi perl-dbd-sqlite
+fi
 
-paru -S --needed --noconfirm \
-  php python jdk-openjdk gcc mono gcc-fortran fpc r ruby \
-  sqlite bc git mariadb-clients curl \
-  perl-text-csv perl-dbi perl-dbd-sqlite
-
-#cpan install DBI DBD::SQLite Text::CSV_XS
+mkdir -p log
 
 sqlite3 log/log.db \
 "create table IF NOT EXISTS log (
@@ -26,4 +27,6 @@ sqlite3 log/log.db \
     eb real
 );"
 
-curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
+if [ ! -d "shunit2-2.1.6" ]; then
+  curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
+fi
