@@ -46,7 +46,7 @@ function compile {
     gcc -O1 -o "$TMP/c"   'inc/inc.c';
     mcs -out:"$TMP/cs.exe" inc/inc.cs
     javac 'inc/inc.java' -d .;
-    mysql -u root < inc/def.sql;
+    mariadb < inc/def.sql;
     f95 -O1 -o "$TMP/f" inc/inc.f95
     fpc -O2 inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
 }

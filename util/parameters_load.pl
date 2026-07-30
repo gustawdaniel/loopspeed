@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use autodie;
 
-use Text::CSV_XS;
+use Text::CSV;
 use DBI;
 
 my $dbh = DBI->connect(
@@ -35,7 +35,7 @@ INSERT INTO result
 VALUES (?,    ?,     ?,     ?,     ?)
 SQL
 
-my $csv = Text::CSV_XS->new or die;
+my $csv = Text::CSV->new or die;
 open my $fh, "<", "config/parameters.csv";
 while(my $row = $csv->getline($fh)) {
     $sth->execute(@$row);
