@@ -47,6 +47,6 @@ You can run GitHub Actions workflows locally using [act](https://github.com/nekt
 # Install act on Arch Linux
 paru -S act
 
-# Run GitHub Actions workflow locally in Docker
-act
+# Run GitHub Actions workflow locally with modern Ubuntu image
+act -P ubuntu-latest=catthehacker/ubuntu:act-latest
 ```
