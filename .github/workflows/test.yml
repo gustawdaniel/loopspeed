@@ -1,0 +1,45 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:latest
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'yes'
+          MARIADB_DATABASE: inc
+        ports:
+          - 3306:3306
+        options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Perl
+        uses: shogo82145/actions-setup-perl@v1
+        with:
+          perl-version: '5.38'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gfortran fpc mono-devel nodejs python3 perl mariadb-client
+          cpanm --notest Text::CSV_XS || true
+          bash install.sh
+
+      - name: Load database parameters
+        run: |
+          perl util/parameters_load.pl
+
+      - name: Run test suite
+        run: |
+          bash test.sh
