@@ -48,7 +48,7 @@ function compile {
     javac 'inc/inc.java' -d .;
     mariadb < inc/def.sql;
     f95 -O1 -o "$TMP/f" inc/inc.f95
-    fpc -O2 inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
+    fpc inc/inc.p -o"$TMP/p" -Tlinux &>/dev/null
 }
 
 # number of loops for given languages in dependence from $timeMode
