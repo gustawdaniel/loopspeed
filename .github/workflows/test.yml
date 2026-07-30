@@ -24,16 +24,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Perl
-        uses: shogo82145/actions-setup-perl@v1
-        with:
-          perl-version: '5.38'
-
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y gfortran fpc mono-devel nodejs python3 perl mariadb-client
-          cpanm --notest Text::CSV_XS || true
+          sudo apt-get install -y gfortran fpc mono-devel nodejs python3 perl cpanminus mariadb-client
+          sudo cpanm --notest Text::CSV_XS || true
           bash install.sh
 
       - name: Load database parameters

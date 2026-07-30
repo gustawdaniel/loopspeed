@@ -1,24 +1,52 @@
-Install gitlab runner locally
+# Loopspeed - Performance Analysis of Empty Loops in 16 Languages
 
-    curl -sSL https://get.docker.com/ | sh
-    curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-ci-multi-runner/script.deb.sh | sudo bash
-    sudo apt-get install gitlab-ci-multi-runner
+Benchmarking project measuring and analyzing empty loop performance and program startup overhead across 16 different programming languages.
 
-Install docker 
+## Project Structure
 
-    curl -fsSL https://apt.dockerproject.org/gpg | sudo apt-key add -
-    
-<!--Docker for all users:-->    
-    <!--sudo groupadd docker-->
-    <!--sudo gpasswd -a ${USER} docker-->
-    <!--sudo service docker restart-->
+- `inc/` - Benchmark implementations for each programming language (`inc.c`, `inc.cpp`, `inc.py`, `inc.r`, etc.)
+- `util/generate_parameters.py` - Non-linear regression data fitting using SciPy (`uv run util/generate_parameters.py`)
+- `util/generate_plots.py` - Plot generator using Matplotlib (`uv run util/generate_plots.py`)
+- `util/publish_to_blog.sh` - Publishes generated plots directly to the blog public directory
+- `test.sh` - Project test suite using `shunit2`
+- `.github/workflows/test.yml` - CI/CD pipeline for GitHub Actions
 
-Test by docker
+## Installation & Running Locally
 
-    sudo gitlab-runner exec docker test
-    
-    sudo apt-get install git
-    git clone -depth=1 http://github.com/gustawdaniel/loopspeed && cd loopspeed
-    bash install.sh
-    
-    
+1. Install dependencies:
+   ```bash
+   bash install.sh
+   ```
+
+2. Load parameters into SQLite:
+   ```bash
+   perl util/parameters_load.pl
+   ```
+
+3. Run benchmarks:
+   ```bash
+   bash inc.bash -t 2
+   ```
+
+4. Run tests:
+   ```bash
+   bash test.sh
+   ```
+
+5. Generate parameters & plots with Python (`uv`):
+   ```bash
+   uv run util/generate_parameters.py
+   uv run util/generate_plots.py
+   ```
+
+## Local GitHub Actions Testing with `act`
+
+You can run GitHub Actions workflows locally using [act](https://github.com/nektos/act):
+
+```bash
+# Install act on Arch Linux
+paru -S act
+
+# Run GitHub Actions workflow locally in Docker
+act
+```
